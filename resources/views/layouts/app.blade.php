@@ -67,37 +67,25 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .footer {
+                background-color: blueviolet;
+                margin-right: -15px;
+                margin-left: -15px;
+                color: #fff;
+                padding: 40px;
+                font-weight: 900;
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
+        <div class="container">
             <div class="content" id="app">
-
                 @yield('content')
+            </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+            <div class="footer text-center">
+                Copyright &copy; 2019 I Putu Saputra
             </div>
         </div>
 

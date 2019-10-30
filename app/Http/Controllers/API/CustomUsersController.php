@@ -9,14 +9,14 @@ use App\CustomUser;
 class CustomUsersController extends Controller
 {
     public function register(Request $request) {
-        $this->validate($request, function() {
-            'mobile_number' => 'required|unique:custom_users,mobile_number|max:20',
+        $this->validate($request, [
+            'mobile_number' => 'required|unique:custom_users,mobile_number|max:20|regex:/(^([+62])(\d{13})?$)/u',
             'first_name' => 'required|max:20',
             'last_name' => 'required|max:20',
-            'date_of_birth' => 'date',
+            'date_of_birth' => 'date_format:"Y/m/d"',
             'gender' => 'max:10',
             'email' => 'required|unique:custom_users,email|max:50'
-        });
+        ]);
 
         $customUser = new CustomUser;
         $customUser->mobile_number = $request->mobile_number;
@@ -31,29 +31,13 @@ class CustomUsersController extends Controller
         $customUser->email = $request->email;
         $customUser->save();
 
-        return response->json({
+        return response()->json([
             'success' => true,
-            'message' => 'login success'
-        });
+            'message' => 'register success'
+        ]);
     }
 
     public function login(Request $request) {
-        if (Session::get('user_id') === null) {
-            $customUser = CustomUser::where('mobile_number', $request->mobile_number)
-                                    ->where('email', $request->email)
-                                    ->first();
-
-            if ($customUser) {
-                return response->json({
-                    'success' => true,
-                    'message' => 'login success'
-                });
-            }
-        } else {
-            return response->json({
-                'success' => false,
-                'message' => 'login failed, your email and mobile number not exist in our database'
-            });
-        }
+        return view('login');
     }
 }
