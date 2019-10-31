@@ -12,5 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('register');
 });
+
+Route::get('/loginData', 'API\CustomUsersController@login')->name('login.user');
