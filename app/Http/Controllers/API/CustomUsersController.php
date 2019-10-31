@@ -9,6 +9,10 @@ use App\CustomUser;
 class CustomUsersController extends Controller
 {
     public function register(Request $request) {
+        $customMessages = [
+            'regex' => 'Please enter valid Indonesian phone number e.g +6281706501003'
+        ];
+
         $this->validate($request, [
             'mobile_number' => 'required|unique:custom_users,mobile_number|max:20|regex:/(^([+62])(\d{13})?$)/u',
             'first_name' => 'required|max:20',
@@ -16,7 +20,7 @@ class CustomUsersController extends Controller
             'date_of_birth' => 'date_format:"Y/m/d"',
             'gender' => 'max:10',
             'email' => 'required|unique:custom_users,email|max:50'
-        ]);
+        ], $customMessages);
 
         $customUser = new CustomUser;
         $customUser->mobile_number = $request->mobile_number;
